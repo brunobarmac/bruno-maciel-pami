@@ -1,0 +1,12 @@
+{
+  "name": "bruno-maciel-pami",
+  "version": "1.0.0",
+  "description": "Aulas de programação mobile 1 com o professor João Siles na ETEC Prof. Carmago Aranha\r hnhnuuhnnhnuh\r 21/08 É Combustivel\r https://app.flutterflow.io/project/combustivel-mfge5g",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
