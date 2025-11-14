@@ -63,22 +63,7 @@ export default function Index() {
 
 const onSaveImageAsync = async () => {
   if (Platform.OS !== 'web'){
-
-  try {
-    const localUri = await captureRef(imageRef,{
-     height: 440,
-     quality: 1, 
-    });
- 
-    await MediaLibrary.saveToLibraryAsync(localUri);
-    if (localUri){
-      alert("Saved");
-    }
-  }catch (e){
-    console.log(e);
-  }
-    } else {
-      try {
+try {
         const dataUrl = await domtoimage.toJpeg(imageRef.current, {
           quality: 0.95,
           width: 320,
@@ -93,6 +78,20 @@ const onSaveImageAsync = async () => {
         console.log(e);
       }
     }
+  try {
+    const localUri = await captureRef(imageRef,{
+     height: 440,
+     quality: 1, 
+    });
+ 
+    await MediaLibrary.saveToLibraryAsync(localUri);
+    if (localUri){
+      alert("Saved");
+    }
+  }catch (e){
+    console.log(e);
+  }
+     
   };
 
   return (
