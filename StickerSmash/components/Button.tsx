@@ -3,30 +3,41 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
   label: string;
-  theme?: 'primary';
+  theme?: 'danger';
+  onPress?: () => void;
 };
 
-export default function Button({ label, theme }: Props) {
-  if (theme === 'primary') {
+export default function Button({ label, theme, onPress }: Props) {
+  if (theme === 'danger') {
     return (
       <View
-        style={[
-          styles.buttonContainer,
-          { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 },
-        ]}>
-        <Pressable
+        style={[styles.buttonContainer,
+        { borderWidth: 4, borderColor: '#ffd33d', borderRadius: 18 }
+        ]}
+      >
+
+    <Pressable
           style={[styles.button, { backgroundColor: '#fff' }]}
           onPress={() => alert('You pressed a button.')}>
           <FontAwesome name="picture-o" size={18} color="#25292e" style={styles.buttonIcon} />
           <Text style={[styles.buttonLabel, { color: '#25292e' }]}>{label}</Text>
         </Pressable>
+   
+          <FontAwesome
+            name="picture-o"
+            size={18}
+            color="#25292e"
+            style={styles.buttonIcon}
+          />
+
+          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+            {label}
+          </Text>
       </View>
     );
-  }
-
-  return (
+  } return (
     <View style={styles.buttonContainer}>
-      <Pressable style={styles.button} onPress={() => alert('You pressed a button.')}>
+      <Pressable style={styles.button} onPress={onPress}>
         <Text style={styles.buttonLabel}>{label}</Text>
       </Pressable>
     </View>
@@ -42,6 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 3,
   },
+
   button: {
     borderRadius: 10,
     width: '100%',
@@ -50,9 +62,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+
   buttonIcon: {
     paddingRight: 8,
   },
+
   buttonLabel: {
     color: '#fff',
     fontSize: 16,

@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "aula_04",
-    "slug": "aula_04",
+    "name": "StickerSmas",
+    "slug": "StickerSmas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "aula04",
+    "scheme": "stickersmas",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
