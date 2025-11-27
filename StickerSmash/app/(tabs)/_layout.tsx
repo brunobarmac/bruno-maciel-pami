@@ -4,7 +4,7 @@ import { Tabs } from "expo-router";
 export default function TabsLayout() {
   return (
     <Tabs screenOptions={{
-      tabBarActiveTintColor: "#FF4500",
+      tabBarActiveTintColor: "#008cffff",
       headerStyle: {
         backgroundColor: '#1C1C1C'
       },
@@ -18,7 +18,7 @@ export default function TabsLayout() {
 
       <Tabs.Screen name="index"
         options={{
-          headerTitle: "Sticker Smash",
+          headerTitle: "Aplicativo do Bruno",
           tabBarIcon: ({ focused, color }) => (
             <Ionicons
               name={focused ? 'home' : 'home-outline'}

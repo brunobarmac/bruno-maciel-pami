@@ -1,38 +1,33 @@
+import Button from '@/components/Button';
+import CircleButton from '@/components/CircleButton';
+import EmojiList from '@/components/EmojiList';
+import EmojiPicker from '@/components/EmojiPicker';
+import EmojiSticker from '@/components/EmojiSticker';
+import IconButton from '@/components/IconButton';
+import ImageViewer from '@/components/ImageViewer';
+
+import domtoimage from 'dom-to-image';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import { useEffect, useRef, useState } from 'react';
-import { ImageSourcePropType, View, StyleSheet, Platform } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Platform, StyleSheet, View } from 'react-native';
 import { captureRef } from 'react-native-view-shot';
-import domtoimage from 'dom-to-image';
 
-import Button from '@/components/Button';
-import ImageViewer from '@/components/ImageViewer';
-import IconButton from '@/components/IconButton';
-import CircleButton from '@/components/CircleButton';
-import EmojiPicker from '@/components/EmojiPicker';
-import EmojiList from '@/components/EmojiList';
-import EmojiSticker from '@/components/EmojiSticker';
-
-
-const PlaceholderImage = require('@/assets/images/background-image.png');
+const PlaceholderImage = require('@/assets/images/charizard-png.png');
 
 export default function Index() {
-
-  const imageRef = useRef<View>(null);
-
+  const imageRef = useRef(null);
   const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-
-    useEffect(() => {
-    if (!permissionResponse?.granted) {
-      requestPermission();
-    }
-  }, []);
-
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const [pickedEmoji, setPickedEmoji] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (!permissionResponse?.granted) {
+      requestPermission();
+    }
+  }, []);
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -61,13 +56,14 @@ export default function Index() {
     setIsModalVisible(true);
   };
 
-const onSaveImageAsync = async () => {
-  if (Platform.OS !== 'web'){
-try {
+  const onSaveImageAsync = async () => {
+    if (Platform.OS === 'web') {
+      try {
+        // @ts-ignore
         const dataUrl = await domtoimage.toJpeg(imageRef.current, {
           quality: 0.95,
-          width: 320,
-          height: 440,
+          width: 400,
+          height: 550,
         });
 
         let link = document.createElement('a');
@@ -77,27 +73,27 @@ try {
       } catch (e) {
         console.log(e);
       }
-    }
-  try {
-    const localUri = await captureRef(imageRef,{
-     height: 440,
-     quality: 1, 
-    });
- 
-    await MediaLibrary.saveToLibraryAsync(localUri);
-    if (localUri){
-      alert("Saved");
-    }
-  }catch (e){
-    console.log(e);
-  }
-     
+    }else {
+      try {
+        const localUri = await captureRef(imageRef, {
+          height: 440,
+          quality: 1,
+        });
+  
+        await MediaLibrary.saveToLibraryAsync(localUri);
+        if (localUri) {
+          alert('Saved!');
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
   };
 
-  return (
 
+  return (
     <View style={styles.container}>
-      <View ref={imageRef} style={styles.imageContainer}>
+      <View ref={imageRef} style={{}}>
         <ImageViewer imgSource={selectedImage || PlaceholderImage} />
         {pickedEmoji && (
           <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
@@ -120,7 +116,7 @@ try {
           <Button
             onPress={pickImageAsync}
             label="Choose a photo"
-            theme='danger'
+            theme='primary'
           />
 
           <Button
@@ -142,7 +138,7 @@ try {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1C1C1C',
+    backgroundColor: '#ffffffff',
     alignItems: 'center',
     justifyContent: 'center',
   },
